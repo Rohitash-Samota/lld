@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.example.lld.dto.LRUNode;
+import com.example.lld.dto.lru.LRUNode;
 
 @Service
 public class LRUCacheService<K, V> {
@@ -17,6 +17,7 @@ public class LRUCacheService<K, V> {
     private final LRUNode<K, V> head;
     private final LRUNode<K, V> tail;
 
+    // Create LRU where create empty head and tail node assign
     public LRUCacheService() {
 
         cacheMap = new HashMap<>();
@@ -28,6 +29,9 @@ public class LRUCacheService<K, V> {
         tail.setPrev(head);
     }
 
+    // fir check key contain in cache map after get existing node if have remove this node nd add on front 
+    // full capacity than remove tail node 
+    // create new node and add in front 
     public void put(K key, V value) {
 
         if (cacheMap.containsKey(key)) {
@@ -58,6 +62,7 @@ public class LRUCacheService<K, V> {
         cacheMap.put(key, newNode);
     }
 
+    // check contain if have than remove and add at front
     public V get(K key) {
 
         if (!cacheMap.containsKey(key)) {
