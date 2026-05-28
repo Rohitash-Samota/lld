@@ -4,5 +4,6 @@ public enum SpotType {
     COMPACT,
     REGULAR,
     LARGE,
-    EXTRA_LARGE
+    EXTRA_LARGE,
+    LUXURY
 }

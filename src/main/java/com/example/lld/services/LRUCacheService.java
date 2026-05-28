@@ -29,9 +29,10 @@ public class LRUCacheService<K, V> {
         tail.setPrev(head);
     }
 
-    // fir check key contain in cache map after get existing node if have remove this node nd add on front 
-    // full capacity than remove tail node 
-    // create new node and add in front 
+    // fir check key contain in cache map after get existing node if have remove
+    // this node nd add on front
+    // full capacity than remove tail node
+    // create new node and add in front
     public void put(K key, V value) {
 
         if (cacheMap.containsKey(key)) {

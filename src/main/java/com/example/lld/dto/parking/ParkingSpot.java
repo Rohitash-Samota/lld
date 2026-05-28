@@ -13,7 +13,11 @@ public class ParkingSpot {
     private SpotType spotType;
     private SpotStatus status;
 
-    public void ParkingSpot(String spotId, int row, int column, int spotNumber, SpotType spotType) {
+    public ParkingSpot() {
+
+    }
+
+    public ParkingSpot(String spotId, int row, int column, int spotNumber, SpotType spotType) {
         this.spotId = spotId;
         this.row = row;
         this.column = column;

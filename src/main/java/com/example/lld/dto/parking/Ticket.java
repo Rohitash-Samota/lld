@@ -1,6 +1,7 @@
 package com.example.lld.dto.parking;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import com.example.lld.enums.parking.TicketStatus;
 
@@ -13,12 +14,15 @@ public class Ticket {
     private TicketStatus status;
     private double amount;
 
-    public void TicketAssign(String ticketNumber, Vehicle vehicle, LocalDateTime issueTime) {
+    public Ticket(String ticketNumber,
+            Vehicle vehicle,
+            LocalDateTime issueTime,
+            TicketStatus status) {
+
         this.ticketNumber = ticketNumber;
         this.vehicle = vehicle;
         this.issueTime = issueTime;
-        this.exitTime = null;
-        this.status = TicketStatus.ACTIVE;
+        this.status = status;
         this.amount = 0;
     }
 
@@ -70,4 +74,8 @@ public class Ticket {
         this.amount = amount;
     }
 
+    public String createTicketId(Vehicle vehicle) {
+        String randomId = UUID.randomUUID().toString().substring(0, 6).toUpperCase();
+        return "TC-" + vehicle.getRCNumber() + '-' + randomId;
+    }
 }
