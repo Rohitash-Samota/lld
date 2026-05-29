@@ -6,7 +6,8 @@ import com.example.lld.enums.parking.SpotType;
 public class ParkingSpot {
 
     private String spotId;
-    private Vehicle vehicle;
+    private String rcNumber;
+    private String ticketNumber;
     private int row;
     private int column;
     private int spotNumber;
@@ -17,12 +18,11 @@ public class ParkingSpot {
 
     }
 
-    public ParkingSpot(String spotId, int row, int column, int spotNumber, SpotType spotType) {
-        this.spotId = spotId;
+    public ParkingSpot(int row, int column) {
+        this.spotId = createSpotId(spotNumber);
         this.row = row;
         this.column = column;
-        this.spotNumber = spotNumber;
-        this.spotType = spotType;
+        this.spotNumber = row * column;
         this.status = SpotStatus.AVAILABLE;
     }
 
@@ -30,21 +30,27 @@ public class ParkingSpot {
         return this.getStatus() == SpotStatus.AVAILABLE;
     }
 
-    public boolean ParkVehicle(Vehicle vehicle) {
+    public boolean isAvailableSpotGivenSpotType(SpotType spotType) {
+        return this.getStatus() == SpotStatus.AVAILABLE && this.getSpotType() == spotType;
+    }
+
+    public boolean ParkVehicle(String rcNumber, String ticketNumber) {
         if (!isAvailableSpot()) {
             return false;
         }
-        this.vehicle = vehicle;
+        this.rcNumber = rcNumber;
+        this.ticketNumber = ticketNumber;
         this.status = SpotStatus.OCCUPIED;
         return true;
     }
 
     public boolean unparkVehicle() {
-        if (!isAvailableSpot()) {
+        if (isAvailableSpot()) {
             return false;
         }
         this.status = SpotStatus.AVAILABLE;
-        this.vehicle = null;
+        this.ticketNumber = null;
+        this.rcNumber = null;
         return true;
     }
 
@@ -54,14 +60,6 @@ public class ParkingSpot {
 
     public void setSpotId(String spotId) {
         this.spotId = spotId;
-    }
-
-    public Vehicle getVehicle() {
-        return vehicle;
-    }
-
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
     }
 
     public int getRow() {
@@ -104,4 +102,23 @@ public class ParkingSpot {
         this.status = status;
     }
 
+    public String getRcNumber() {
+        return rcNumber;
+    }
+
+    public void setRcNumber(String rcNumber) {
+        this.rcNumber = rcNumber;
+    }
+
+    public String getTicketNumber() {
+        return ticketNumber;
+    }
+
+    public void setTicketNumber(String ticketNumber) {
+        this.ticketNumber = ticketNumber;
+    }
+
+    private String createSpotId(int spotNo) {
+        return "SP-" + spotNo;
+    }
 }

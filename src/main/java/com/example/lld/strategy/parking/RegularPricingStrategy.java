@@ -1,6 +1,7 @@
 package com.example.lld.strategy.parking;
 
 public class RegularPricingStrategy implements PricingStrategy {
+
     @Override
     public double getFixedFirstHourRate() {
         return 30;

@@ -1,7 +1,6 @@
 package com.example.lld.dto.parking;
 
 import com.example.lld.enums.parking.LevelType;
-import com.example.lld.enums.parking.SpotStatus;
 import com.example.lld.enums.parking.SpotType;
 
 public class Level {
@@ -25,7 +24,7 @@ public class Level {
         initializeLevel(numberRow, spotPerRow);
     }
 
-    public void initializeLevel(int numberRow, int spotPerRow) {
+    private void initializeLevel(int numberRow, int spotPerRow) {
 
         int index = 0;
 
@@ -33,12 +32,7 @@ public class Level {
 
             for (int col = 0; col < spotPerRow; col++) {
 
-                ParkingSpot parkingSpot = new ParkingSpot();
-
-                parkingSpot.setRow(row);
-                parkingSpot.setColumn(col);
-                parkingSpot.setVehicle(null);
-                parkingSpot.setStatus(SpotStatus.AVAILABLE);
+                ParkingSpot parkingSpot = new ParkingSpot(row, col);
 
                 int spotNumber = index + 1;
 
@@ -59,20 +53,19 @@ public class Level {
                 } else {
                     parkingSpot.setSpotType(SpotType.LUXURY);
                 }
-                parkingSpot.setSpotId(createSpotId(spotNumber));
                 slots[index] = parkingSpot;
                 index++;
             }
         }
     }
 
-    public boolean parkVehicle(Vehicle vehicle) {
+    public boolean parkVehicle(Vehicle vehicle, String ticketId) {
         SpotType spotNeeded = vehicle.getSpotNeeded();
         ParkingSpot availableParkingSpot = findAvailableSpot(spotNeeded);
         if (availableParkingSpot != null) {
-            availableParkingSpot.ParkVehicle(vehicle);
-            System.out.println("Vehicle => " + vehicle.getRCNumber() + " Spot Id =>" +
-                    availableParkingSpot.getSpotId());
+            availableParkingSpot.ParkVehicle(vehicle.getRCNumber(), ticketId);
+            System.out.println("Vehicle => " + vehicle.getRCNumber() + " Spot Id =>"
+                    + availableParkingSpot.getSpotId());
             return true;
         }
 
@@ -81,26 +74,42 @@ public class Level {
     }
 
     public boolean unparkVehicle(ParkingSpot spot) {
-        if (!spot.isAvailableSpot()) {
-            spot.unparkVehicle();
-            System.out.println("Unpark vehicle =>" + spot.getSpotId());
-            return true;
+
+        boolean success = spot.unparkVehicle();
+
+        if (success) {
+            System.out.println("Vehicle un-parked from " + spot.getSpotId());
+        } else {
+            System.out.println("Spot already empty: " + spot.getSpotId());
         }
-        System.out.println("Already Unpark Vehicle =>" + spot.getSpotId());
-        return false;
+
+        return success;
+    }
+
+    public ParkingSpot getParkingSpotFromLevel(String ticketId) {
+
+        if (slots == null) {
+            return null;
+        }
+
+        for (ParkingSpot spot : slots) {
+            if (spot != null
+                    && spot.getTicketNumber() != null
+                    && spot.getTicketNumber().equals(ticketId)) {
+                return spot;
+            }
+        }
+
+        return null;
     }
 
     private ParkingSpot findAvailableSpot(SpotType spotType) {
         for (ParkingSpot spot : slots) {
-            if (spot.isAvailableSpot()) {
+            if (spot.isAvailableSpotGivenSpotType(spotType)) {
                 return spot;
             }
         }
         return null;
-    }
-
-    private String createSpotId(int spotNo) {
-        return "L-" + levelId + "-SP-" + spotNo;
     }
 
     public ParkingSpot[] getAvailableSpots() {
@@ -150,5 +159,4 @@ public class Level {
     public String createLevelId(LevelType levelType) {
         return "L-" + levelType;
     }
-
 }

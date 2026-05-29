@@ -1,6 +1,7 @@
 package com.example.lld.dto.parking;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.UUID;
 
 import com.example.lld.enums.parking.TicketStatus;
@@ -8,21 +9,17 @@ import com.example.lld.enums.parking.TicketStatus;
 public class Ticket {
 
     private String ticketNumber;
-    private Vehicle vehicle;
+    private String vehicleNumber;
     private LocalDateTime issueTime;
     private LocalDateTime exitTime;
     private TicketStatus status;
     private double amount;
 
-    public Ticket(String ticketNumber,
-            Vehicle vehicle,
-            LocalDateTime issueTime,
-            TicketStatus status) {
-
-        this.ticketNumber = ticketNumber;
-        this.vehicle = vehicle;
-        this.issueTime = issueTime;
-        this.status = status;
+    public Ticket(String vehicleNumber) {
+        this.ticketNumber = generateTicketId(vehicleNumber);
+        this.vehicleNumber = vehicleNumber;
+        this.issueTime = LocalDateTime.now(ZoneId.of("Asia/Kolkata"));
+        this.status = TicketStatus.ACTIVE;
         this.amount = 0;
     }
 
@@ -32,14 +29,6 @@ public class Ticket {
 
     public void setTicketNumber(String ticketNumber) {
         this.ticketNumber = ticketNumber;
-    }
-
-    public Vehicle getVehicle() {
-        return vehicle;
-    }
-
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
     }
 
     public LocalDateTime getIssueTime() {
@@ -78,4 +67,17 @@ public class Ticket {
         String randomId = UUID.randomUUID().toString().substring(0, 6).toUpperCase();
         return "TC-" + vehicle.getRCNumber() + '-' + randomId;
     }
+
+    public String getVehicleNumber() {
+        return vehicleNumber;
+    }
+
+    public void setVehicleNumber(String vehicleNumber) {
+        this.vehicleNumber = vehicleNumber;
+    }
+
+    private String generateTicketId(String RCNumber) {
+        return "TICKET-" + RCNumber + "-" + System.currentTimeMillis();
+    }
+
 }

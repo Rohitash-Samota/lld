@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
 import com.example.lld.dto.parking.Payment;
 import com.example.lld.dto.parking.Ticket;
 import com.example.lld.dto.parking.Vehicle;
@@ -14,9 +16,11 @@ import com.example.lld.enums.parking.SpotType;
 import com.example.lld.factory.parking.PricingStrategyFactory;
 import com.example.lld.strategy.parking.PricingStrategy;
 
+@Service
 public class PaymentService {
+
     // here create a payment and
-    private Map<String, Payment> payments = new HashMap<>();
+    private final Map<String, Payment> payments = new HashMap<>();
 
     public boolean makePayment(Ticket ticket, Vehicle vehicle, PaymentMethod paymentMethod) {
 

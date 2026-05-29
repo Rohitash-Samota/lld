@@ -1,36 +1,31 @@
 package com.example.lld.services;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
 import com.example.lld.dto.parking.Ticket;
 import com.example.lld.dto.parking.Vehicle;
-import com.example.lld.enums.parking.TicketStatus;
 
+@Service
 public class TicketService {
-    private Map<String, Ticket> tickets = new HashMap<>();
 
-    public Ticket createTicket(Vehicle vehicle) {
+    private final Map<String, Ticket> tickets = new HashMap<>();
 
-        String ticketNumber = generateTicketId(vehicle);
+    public TicketService() {
 
-        Ticket ticket = new Ticket(
-                ticketNumber,
-                vehicle,
-                LocalDateTime.now(ZoneId.of("Asia/Kolkata")),
-                TicketStatus.ACTIVE);
-        tickets.put(ticketNumber, ticket);
-        return ticket;
+    }
+
+    public String createTicket(Vehicle vehicle) {
+        String vehicleRCNumber = vehicle.getRCNumber();
+        Ticket ticket = new Ticket(vehicleRCNumber);
+
+        tickets.put(ticket.getTicketNumber(), ticket);
+        return ticket.getTicketNumber();
     }
 
     public Ticket getTicket(String ticketNumber) {
         return tickets.get(ticketNumber);
-    }
-
-    private String generateTicketId(Vehicle vehicle) {
-        return "TICKET-" + vehicle.getRCNumber()
-                + "-" + System.currentTimeMillis();
     }
 }

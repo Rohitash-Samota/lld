@@ -1,6 +1,7 @@
 package com.example.lld.strategy.parking;
 
 public interface PricingStrategy {
+
     double getFixedFirstHourRate();
 
     double getHourlyRate();

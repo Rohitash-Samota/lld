@@ -9,7 +9,7 @@ public class Vehicle {
     private VehicleType vehicleType;
     private SpotType spotNeeded;
 
-    public Vehicle(String RCNumber, SpotType spotNeeded, VehicleType vehicleType) {
+    public Vehicle(String RCNumber, VehicleType vehicleType, SpotType spotNeeded) {
         this.RCNumber = RCNumber;
         this.spotNeeded = spotNeeded;
         this.vehicleType = vehicleType;
