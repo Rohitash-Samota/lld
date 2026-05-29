@@ -6,13 +6,13 @@ import org.springframework.stereotype.Component;
 import com.example.lld.dto.parking.Vehicle;
 import com.example.lld.enums.parking.SpotType;
 import com.example.lld.enums.parking.VehicleType;
-import com.example.lld.services.DashboardService;
-import com.example.lld.services.EntranceGate;
-import com.example.lld.services.ExitGate;
-import com.example.lld.services.ParkingService;
-import com.example.lld.services.PaymentService;
-import com.example.lld.services.TicketService;
-import com.example.lld.services.VehicleService;
+import com.example.lld.services.parking.DashboardService;
+import com.example.lld.services.parking.EntranceGate;
+import com.example.lld.services.parking.ExitGate;
+import com.example.lld.services.parking.ParkingService;
+import com.example.lld.services.parking.PaymentService;
+import com.example.lld.services.parking.TicketService;
+import com.example.lld.services.parking.VehicleService;
 
 @Component
 public class TestRunnerParking implements CommandLineRunner {

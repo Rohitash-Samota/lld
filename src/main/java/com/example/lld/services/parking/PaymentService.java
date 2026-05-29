@@ -1,4 +1,4 @@
-package com.example.lld.services;
+package com.example.lld.services.parking;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package com.example.lld.services;
+package com.example.lld.services.parking;
 
 import com.example.lld.dto.parking.ParkingSpot;
 import com.example.lld.dto.parking.Ticket;

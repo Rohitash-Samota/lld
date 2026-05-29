@@ -1,4 +1,4 @@
-package com.example.lld.services;
+package com.example.lld.services.parking;
 
 import java.util.ArrayList;
 import java.util.List;

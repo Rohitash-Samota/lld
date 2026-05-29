@@ -1,4 +1,4 @@
-package com.example.lld.services;
+package com.example.lld.services.parking;
 
 import org.springframework.stereotype.Service;
 
