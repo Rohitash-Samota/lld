@@ -11,13 +11,13 @@ public class Seat {
     private boolean isBooked;
     private SeatType seatType;
 
-    public Seat(String seatId, char row, int colNumber, SeatType seatType) {
-        this.seatId = seatId;
+    public Seat(char row, int colNumber, SeatType seatType) {
         this.row = row;
         this.colNumber = colNumber;
         this.seatType = seatType;
         this.isBooked = false;
         this.seatName = row + String.valueOf(colNumber);
+        this.seatId = CreateSeatId();
     }
 
     public String getSeatId() {
@@ -50,5 +50,9 @@ public class Seat {
 
     public void setSeatType(SeatType seatType) {
         this.seatType = seatType;
+    }
+
+    private String CreateSeatId() {
+        return "SL-" + getRow() + getColNumber();
     }
 }

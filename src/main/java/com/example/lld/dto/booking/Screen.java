@@ -6,12 +6,14 @@ public class Screen {
     private String screenId;
     private ScreenType screenType;
     private String screenName;
+    private String movieId;
     private Seat[] seats;
 
     public Screen(ScreenType screenType, String screenName, Seat[] seats) {
         this.screenType = screenType;
         this.screenName = screenName;
         this.seats = seats;
+        this.movieId = null;
         this.screenId = getScreenId();
     }
 
@@ -49,5 +51,13 @@ public class Screen {
 
     private String createScreenId() {
         return "SC-" + getScreenName();
+    }
+
+    public String getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(String movieId) {
+        this.movieId = movieId;
     }
 }

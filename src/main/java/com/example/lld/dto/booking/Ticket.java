@@ -1,11 +1,9 @@
 package com.example.lld.dto.booking;
 
 public class Ticket {
-    private String ticketId;
     private String ticketNumber;
-    private String theaterId;
-    private String screenId;
-    private String seatId;
+    private Show show;
+    private Seat seat;
     private double amount;
 
     public String getTicketNumber() {
@@ -16,28 +14,12 @@ public class Ticket {
         this.ticketNumber = ticketNumber;
     }
 
-    public String getTheaterId() {
-        return theaterId;
+    public Show getShow() {
+        return show;
     }
 
-    public void setTheaterId(String theaterId) {
-        this.theaterId = theaterId;
-    }
-
-    public String getScreenId() {
-        return screenId;
-    }
-
-    public void setScreenId(String screenId) {
-        this.screenId = screenId;
-    }
-
-    public String getSeatId() {
-        return seatId;
-    }
-
-    public void setSeatId(String seatId) {
-        this.seatId = seatId;
+    public void setShow(Show show) {
+        this.show = show;
     }
 
     public double getAmount() {
@@ -46,6 +28,14 @@ public class Ticket {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public Seat getSeat() {
+        return seat;
+    }
+
+    public void setSeat(Seat seat) {
+        this.seat = seat;
     }
 
 }

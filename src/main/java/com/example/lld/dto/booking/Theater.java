@@ -38,6 +38,14 @@ public class Theater {
     }
 
     public String createTheaterId() {
-        return "TH-";
+        return "TH-" + getName();
+    }
+
+    public String getTheaterId() {
+        return theaterId;
+    }
+
+    public void setTheaterId(String theaterId) {
+        this.theaterId = theaterId;
     }
 }

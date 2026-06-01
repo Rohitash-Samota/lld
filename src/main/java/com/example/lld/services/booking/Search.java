@@ -4,11 +4,6 @@ import com.example.lld.dto.booking.Screen;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
-import com.example.lld.services.booking.TheatersService;
-import com.example.lld.services.booking.MovieService;
-
 @Service
 public class Search {
 
