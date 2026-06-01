@@ -6,69 +6,49 @@ public class Seat {
 
     private String seatId;
     private String seatName;
+    private char row;
     private int colNumber;
-    private int rowNumber;
     private boolean isBooked;
     private SeatType seatType;
 
-    public Seat(int colNumber, int rowNumber, SeatType seatType) {
+    public Seat(String seatId, char row, int colNumber, SeatType seatType) {
+        this.seatId = seatId;
+        this.row = row;
         this.colNumber = colNumber;
-        this.rowNumber = rowNumber;
-        this.seatName = generateSeatName(colNumber, rowNumber);
-        this.isBooked = false;
         this.seatType = seatType;
-        this.seatId = createSeatId();
-    }
-
-    private String generateSeatName(int colNumber, int rowNumber) {
-        char rowChar = (char) ('A' + rowNumber - 1);
-        return rowChar + String.valueOf(colNumber);
-    }
-
-    public String getSeatName() {
-        return seatName;
-    }
-
-    public int getColNumber() {
-        return colNumber;
-    }
-
-    public int getRowNumber() {
-        return rowNumber;
-    }
-
-    public boolean isBooked() {
-        return isBooked;
-    }
-
-    public void bookSeat() {
-        this.isBooked = true;
-    }
-
-    public void cancelSeat() {
         this.isBooked = false;
+        this.seatName = row + String.valueOf(colNumber);
     }
 
     public String getSeatId() {
         return seatId;
     }
 
-    public void setSeatId(String seatId) {
-        this.seatId = seatId;
+    public String getSeatName() {
+        return seatName;
     }
 
-    private String createSeatId() {
-        return "S-" + getColNumber() + '-' + getRowNumber();
+    public char getRow() {
+        return row;
     }
 
-    @Override
-    public String toString() {
-        return "Seat{"
-                + "seatName='" + seatName + '\''
-                + ", colNumber=" + colNumber
-                + ", rowNumber=" + rowNumber
-                + ", isBooked=" + isBooked
-                + ", Seat Type= " + seatType
-                + '}';
+    public int getColNumber() {
+        return colNumber;
+    }
+
+    public boolean isBooked() {
+        return isBooked;
+    }
+
+    public void setBooked(boolean booked) {
+        isBooked = booked;
+    }
+
+    public SeatType getSeatType() {
+        return seatType;
+    }
+
+    public void setSeatType(SeatType seatType) {
+        this.seatType = seatType;
     }
 }
