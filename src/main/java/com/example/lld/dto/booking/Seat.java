@@ -1,11 +1,15 @@
 package com.example.lld.dto.booking;
 
+import com.example.lld.enums.booking.SeatType;
+
 public class Seat {
 
+    private String seatId;
     private String seatName;
     private int colNumber;
     private int rowNumber;
     private boolean isBooked;
+    private SeatType seatType;
 
     public Seat(int colNumber, int rowNumber, SeatType seatType) {
         this.colNumber = colNumber;
@@ -13,6 +17,7 @@ public class Seat {
         this.seatName = generateSeatName(colNumber, rowNumber);
         this.isBooked = false;
         this.seatType = seatType;
+        this.seatId = createSeatId();
     }
 
     private String generateSeatName(int colNumber, int rowNumber) {
@@ -42,6 +47,18 @@ public class Seat {
 
     public void cancelSeat() {
         this.isBooked = false;
+    }
+
+    public String getSeatId() {
+        return seatId;
+    }
+
+    public void setSeatId(String seatId) {
+        this.seatId = seatId;
+    }
+
+    private String createSeatId() {
+        return "S-" + getColNumber() + '-' + getRowNumber();
     }
 
     @Override
