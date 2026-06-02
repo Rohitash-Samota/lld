@@ -7,9 +7,14 @@ import org.springframework.stereotype.Component;
 
 import com.example.lld.dto.booking.Movie;
 import com.example.lld.dto.booking.Screen;
+import com.example.lld.dto.booking.Seat;
 import com.example.lld.dto.booking.Show;
 import com.example.lld.dto.booking.Theater;
+import com.example.lld.enums.booking.SeatType;
+import com.example.lld.services.booking.BookingService;
 import com.example.lld.services.booking.MovieService;
+import com.example.lld.services.booking.PricingRuleService;
+import com.example.lld.services.booking.PricingService;
 import com.example.lld.services.booking.SearchService;
 import com.example.lld.services.booking.ShowService;
 import com.example.lld.services.booking.TheatersService;
@@ -27,6 +32,9 @@ public class TestRunnerBooking implements CommandLineRunner {
     private final SearchByCityName searchByCityName;
     private final SearchByMovieTitleName searchByMovieTitleName;
     private final SearchByTheaterName searchByTheaterName;
+    private final PricingService pricingService;
+    private final PricingRuleService pricingRuleService;
+    private final BookingService bookingService;
 
     public TestRunnerBooking(
             ShowService showService,
@@ -35,7 +43,10 @@ public class TestRunnerBooking implements CommandLineRunner {
             SearchService searchService,
             SearchByCityName searchByCityName,
             SearchByMovieTitleName searchByMovieTitleName,
-            SearchByTheaterName searchByTheaterName) {
+            SearchByTheaterName searchByTheaterName,
+            PricingService pricingService,
+            PricingRuleService pricingRuleService,
+            BookingService bookingService) {
 
         this.showService = showService;
         this.movieService = movieService;
@@ -44,6 +55,9 @@ public class TestRunnerBooking implements CommandLineRunner {
         this.searchByCityName = searchByCityName;
         this.searchByMovieTitleName = searchByMovieTitleName;
         this.searchByTheaterName = searchByTheaterName;
+        this.pricingService = pricingService;
+        this.pricingRuleService = pricingRuleService;
+        this.bookingService = bookingService;
 
     }
 
@@ -98,6 +112,35 @@ public class TestRunnerBooking implements CommandLineRunner {
                 screen3,
                 LocalDateTime.now());
 
+        pricingRuleService.addPricingRule(movieA.getMovieId(), theaterA.getTheaterId(),
+                screen1.getScreenType(), SeatType.GOLD, 120.0, 25.0, 50.0);
+
+        Seat pricingSeat = null;
+        for (Seat seat : screen1.getSeats()) {
+            if (seat != null && SeatType.GOLD.equals(seat.getSeatType())) {
+                pricingSeat = seat;
+                break;
+            }
+        }
+
+        if (pricingSeat != null) {
+            double ticketAmount = pricingService.calculateTicketPrice(show1, pricingSeat, true, true);
+            System.out.println("\n========== PRICING DEMO ==========");
+            System.out.println("Movie: " + show1.getMovie().getMovieName());
+            System.out.println("Theater: " + show1.getTheater().getName());
+            System.out.println("Seat: " + pricingSeat.getSeatName());
+            System.out.println("Seat type: " + pricingSeat.getSeatType());
+            System.out.println("Weekend + festival ticket amount: " + ticketAmount);
+
+            com.example.lld.dto.booking.Ticket ticket = bookingService.bookTicket(
+                    show1.getShowId(), pricingSeat.getRow(),
+                    pricingSeat.getColNumber(), true, true);
+            if (ticket != null) {
+                System.out.println("Booked ticket " + ticket.getTicketNumber()
+                        + " for amount " + ticket.getAmount());
+            }
+        }
+
         Show[] showsByCity = searchService.search("delhi", searchByCityName);
 
         System.out.println("\n========== SEARCH RESULTS FOR 'delhi' ==========");
@@ -110,29 +153,6 @@ public class TestRunnerBooking implements CommandLineRunner {
                     + ", Screen: " + (foundShow.getScreen() != null ? foundShow.getScreen().getScreenName() : "N/A"));
         }
 
-        Show[] showByMovieName = searchService.search("Avengers", searchByMovieTitleName);
-
-        System.out.println("\n========== SEARCH RESULTS FOR 'delhi' ==========");
-        System.out.println("Found " + showByMovieName.length + " show(s) in Delhi:");
-        for (Show foundShow : showByMovieName) {
-            System.out.println("ShowId: " + foundShow.getShowId()
-                    + ", Movie: " + foundShow.getMovie().getMovieName()
-                    + ", Theater: " + foundShow.getTheater().getName()
-                    + ", City: " + foundShow.getTheater().getAddress().getCity()
-                    + ", Screen: " + (foundShow.getScreen() != null ? foundShow.getScreen().getScreenName() : "N/A"));
-        }
-
-        Show[] showByTheaterName = searchService.search("Avengers", searchByTheaterName);
-
-        System.out.println("\n========== SEARCH RESULTS FOR 'delhi' ==========");
-        System.out.println("Found " + showByTheaterName.length + " show(s) in Delhi:");
-        for (Show foundShow : showByTheaterName) {
-            System.out.println("ShowId: " + foundShow.getShowId()
-                    + ", Movie: " + foundShow.getMovie().getMovieName()
-                    + ", Theater: " + foundShow.getTheater().getName()
-                    + ", City: " + foundShow.getTheater().getAddress().getCity()
-                    + ", Screen: " + (foundShow.getScreen() != null ? foundShow.getScreen().getScreenName() : "N/A"));
-        }
         System.out.println("\n========== DATA LOADED ==========");
     }
 }

@@ -45,6 +45,15 @@ public class ShowService {
         return shows;
     }
 
+    public Show findShowById(String showId) {
+
+        if (showId == null || showId.isBlank()) {
+            return null;
+        }
+
+        return shows.get(showId);
+    }
+
     private String createShowId(
             Movie movie,
             Theater theater,

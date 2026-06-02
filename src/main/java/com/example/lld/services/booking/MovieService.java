@@ -12,7 +12,12 @@ public class MovieService {
     private final Map<String, Movie> movies = new HashMap<>();
 
     public Movie createMovie(String movieName, double movieDuration) {
-        Movie newMovie = new Movie(movieName, movieDuration);
+        return createMovie(movieName, movieDuration, 100.0);
+    }
+
+    public Movie createMovie(String movieName, double movieDuration,
+            double basePrice) {
+        Movie newMovie = new Movie(movieName, movieDuration, basePrice);
         movies.put(newMovie.getMovieId(), newMovie);
         return newMovie;
     }

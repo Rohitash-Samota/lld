@@ -5,14 +5,19 @@ public class Movie {
     private String movieId;
     private String movieName;
     private double movieDuration;
+    private double basePrice;
 
     public Movie() {
     }
 
     public Movie(String movieName, double movieDuration) {
+        this(movieName, movieDuration, 100.0);
+    }
 
+    public Movie(String movieName, double movieDuration, double basePrice) {
         this.movieName = movieName;
         this.movieDuration = movieDuration;
+        this.basePrice = basePrice;
         this.movieId = createMovieId();
     }
 
@@ -38,6 +43,14 @@ public class Movie {
 
     public void setMovieDuration(double movieDuration) {
         this.movieDuration = movieDuration;
+    }
+
+    public double getBasePrice() {
+        return basePrice;
+    }
+
+    public void setBasePrice(double basePrice) {
+        this.basePrice = basePrice;
     }
 
     private String createMovieId() {
