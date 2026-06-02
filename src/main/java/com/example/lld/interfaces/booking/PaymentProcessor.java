@@ -1,4 +1,4 @@
-package com.example.lld.services.booking;
+package com.example.lld.interfaces.booking;
 
 import com.example.lld.dto.booking.Ticket;
 

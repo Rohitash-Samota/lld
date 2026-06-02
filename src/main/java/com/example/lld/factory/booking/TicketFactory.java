@@ -1,4 +1,4 @@
-package com.example.lld.services.booking;
+package com.example.lld.factory.booking;
 
 import com.example.lld.dto.booking.Seat;
 import com.example.lld.dto.booking.Show;

@@ -1,4 +1,4 @@
-package com.example.lld.services.booking;
+package com.example.lld.interfaces.booking;
 
 import java.util.List;
 
