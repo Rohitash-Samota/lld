@@ -11,9 +11,10 @@ import com.example.lld.dto.booking.Movie;
 public class MovieService {
     private final Map<String, Movie> movies = new HashMap<>();
 
-    public void createMovie(String movieName, double movieDuration) {
+    public Movie createMovie(String movieName, double movieDuration) {
         Movie newMovie = new Movie(movieName, movieDuration);
         movies.put(newMovie.getMovieId(), newMovie);
+        return newMovie;
     }
 
     public Map<String, Movie> getAllMovies() {

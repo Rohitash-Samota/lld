@@ -20,10 +20,13 @@ public class ShowService {
             Movie movie,
             Theater theater,
             Screen screen,
-            LocalDateTime startTime,
-            LocalDateTime endTime) {
+            LocalDateTime startTime) {
 
         String showId = createShowId(movie, theater, screen, startTime);
+
+        double durationHours = movie.getMovieDuration();
+
+        LocalDateTime endTime = startTime.plusMinutes((long) (durationHours * 60));
 
         Show show = new Show(
                 showId,
@@ -36,6 +39,10 @@ public class ShowService {
         shows.put(showId, show);
 
         return show;
+    }
+
+    public Map<String, Show> getAllShows() {
+        return shows;
     }
 
     private String createShowId(
