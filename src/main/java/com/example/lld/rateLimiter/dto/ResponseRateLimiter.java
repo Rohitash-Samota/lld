@@ -2,14 +2,14 @@ package com.example.lld.rateLimiter.dto;
 
 public class ResponseRateLimiter {
     private boolean allowed;
-    private Long remainingRequests;
-    private Long retryAfterSeconds;
-    private Object message;
+    private int remaining;
+    private Long retryAfterMs;
+    private String message;
 
-    public ResponseRateLimiter(boolean allowed, Long remainingRequests, Long retryAfterSeconds, Object message) {
+    public ResponseRateLimiter(boolean allowed, int remaining, Long retryAfterMs, String message) {
         this.allowed = allowed;
-        this.remainingRequests = remainingRequests;
-        this.retryAfterSeconds = retryAfterSeconds;
+        this.remaining = remaining;
+        this.retryAfterMs = retryAfterMs;
         this.message = message;
     }
 
@@ -21,28 +21,27 @@ public class ResponseRateLimiter {
         this.allowed = allowed;
     }
 
-    public Long getRemainingRequests() {
-        return remainingRequests;
+    public int getRemaining() {
+        return remaining;
     }
 
-    public void setRemainingRequests(Long remainingRequests) {
-        this.remainingRequests = remainingRequests;
+    public void setRemaining(int remaining) {
+        this.remaining = remaining;
     }
 
-    public Long getRetryAfterSeconds() {
-        return retryAfterSeconds;
+    public Long getRetryAfterMs() {
+        return retryAfterMs;
     }
 
-    public void setRetryAfterSeconds(Long retryAfterSeconds) {
-        this.retryAfterSeconds = retryAfterSeconds;
+    public void setRetryAfterMs(Long retryAfterMs) {
+        this.retryAfterMs = retryAfterMs;
     }
 
-    public Object getMessage() {
+    public String getMessage() {
         return message;
     }
 
-    public void setMessage(Object message) {
+    public void setMessage(String message) {
         this.message = message;
     }
-
 }
