@@ -1,11 +1,11 @@
-package com.example.lld.services;
+package com.example.lld.lru;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.example.lld.dto.lru.LRUNode;
+import com.example.lld.lru.dto.LRUNode;
 
 @Service
 public class LRUCacheService<K, V> {
@@ -17,7 +17,6 @@ public class LRUCacheService<K, V> {
     private final LRUNode<K, V> head;
     private final LRUNode<K, V> tail;
 
-    // Create LRU where create empty head and tail node assign
     public LRUCacheService() {
 
         cacheMap = new HashMap<>();
