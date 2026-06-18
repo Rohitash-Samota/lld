@@ -1,14 +1,12 @@
 package com.example.lld.inventoryManagement.dto;
 
-import java.lang.reflect.AccessFlag.Location;
-
 public class WareHouse {
     private String wareHouseId;
     private String wareHouseName;
-    private Location location;
+    private NewLocation location;
     private Stock[] stocks;
 
-    public WareHouse(String wareHouseId, String wareHouseName, Location location, Stock[] stocks) {
+    public WareHouse(String wareHouseId, String wareHouseName, NewLocation location, Stock[] stocks) {
         this.wareHouseId = wareHouseId;
         this.wareHouseName = wareHouseName;
         this.location = location;
@@ -31,11 +29,11 @@ public class WareHouse {
         this.wareHouseName = wareHouseName;
     }
 
-    public Location getLocation() {
+    public NewLocation getLocation() {
         return location;
     }
 
-    public void setLocation(Location location) {
+    public void setLocation(NewLocation location) {
         this.location = location;
     }
 
