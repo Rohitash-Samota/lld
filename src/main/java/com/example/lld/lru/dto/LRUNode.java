@@ -1,4 +1,4 @@
-package com.example.lld.dto.lru;
+package com.example.lld.lru.dto;
 
 public class LRUNode<K, V> {
 

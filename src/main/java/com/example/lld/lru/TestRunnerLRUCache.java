@@ -1,9 +1,7 @@
-package com.example.lld;
+package com.example.lld.lru;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import com.example.lld.services.LRUCacheService;
 
 @Component
 public class TestRunnerLRUCache implements CommandLineRunner {

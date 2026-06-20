@@ -1,11 +1,11 @@
 package com.example.lld.inventoryManagement.dto;
 
-public class location {
+public class NewLocation {
     private Long pincode;
     private String area;
     private String city;
 
-    public location(Long pincode, String area, String city) {
+    public NewLocation(Long pincode, String area, String city) {
         this.pincode = pincode;
         this.area = area;
         this.city = city;
@@ -34,5 +34,4 @@ public class location {
     public void setCity(String city) {
         this.city = city;
     }
-
 }
