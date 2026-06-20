@@ -2,25 +2,16 @@ package com.example.lld.loadBalancer.strategy.algorithm;
 
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import com.example.lld.loadBalancer.abstracts.LoadBalancer;
 import com.example.lld.loadBalancer.dto.Destination;
 import com.example.lld.loadBalancer.dto.Server;
 import com.example.lld.loadBalancer.enums.RequestType;
 
-public class ConsistentHashingStrategy extends LoadBalancer {
+public class IPHashLoadBalancer extends LoadBalancer {
 
-    private final TreeMap<Integer, Server> ring = new TreeMap<>();
-
-    public ConsistentHashingStrategy(Map<RequestType, List<Server>> serverMap) {
+    public IPHashLoadBalancer(Map<RequestType, List<Server>> serverMap) {
         super(serverMap);
-
-        for (List<Server> servers : serverMap.values()) {
-            for (Server server : servers) {
-                ring.put(Math.abs(server.getId().hashCode()), server);
-            }
-        }
     }
 
     @Override
@@ -35,12 +26,8 @@ public class ConsistentHashingStrategy extends LoadBalancer {
 
         int hash = Math.abs(requestType.hashCode());
 
-        Map.Entry<Integer, Server> entry = ring.ceilingEntry(hash);
+        int index = hash % servers.size();
 
-        if (entry == null) {
-            entry = ring.firstEntry();
-        }
-
-        return entry.getValue().getDestination();
+        return servers.get(index).getDestination();
     }
 }

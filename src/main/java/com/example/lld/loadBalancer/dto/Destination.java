@@ -11,7 +11,7 @@ public class Destination {
     }
 
     public boolean acceptRequest() {
-        if(requestsBeingServed < threshold) {
+        if (requestsBeingServed < threshold) {
             requestsBeingServed++;
             return true;
         }
@@ -19,7 +19,7 @@ public class Destination {
     }
 
     public void completeRequest() {
-        if(requestsBeingServed > 0) {
+        if (requestsBeingServed > 0) {
             requestsBeingServed--;
         }
     }
@@ -31,6 +31,7 @@ public class Destination {
     public int getThreshold() {
         return threshold;
     }
+
     public int getRequestsBeingServed() {
         return requestsBeingServed;
     }

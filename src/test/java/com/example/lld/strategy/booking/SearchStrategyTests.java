@@ -1,22 +1,26 @@
 package com.example.lld.strategy.booking;
 
-import com.example.lld.dto.booking.Address;
-import com.example.lld.dto.booking.Movie;
-import com.example.lld.dto.booking.Screen;
-import com.example.lld.dto.booking.Seat;
-import com.example.lld.dto.booking.Show;
-import com.example.lld.dto.booking.Theater;
-import com.example.lld.enums.booking.ScreenType;
-import com.example.lld.services.booking.SearchService;
-import com.example.lld.services.booking.ShowService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import com.example.lld.booking.dto.Address;
+import com.example.lld.booking.dto.Movie;
+import com.example.lld.booking.dto.Screen;
+import com.example.lld.booking.dto.Seat;
+import com.example.lld.booking.dto.Show;
+import com.example.lld.booking.dto.Theater;
+import com.example.lld.booking.enums.ScreenType;
+import com.example.lld.booking.service.SearchService;
+import com.example.lld.booking.service.ShowService;
+import com.example.lld.booking.strategy.SearchByCityName;
+import com.example.lld.booking.strategy.SearchByMovieTitleName;
+import com.example.lld.booking.strategy.SearchByTheaterName;
+import com.example.lld.booking.strategy.SearchStrategy;
 
 class SearchStrategyTests {
 

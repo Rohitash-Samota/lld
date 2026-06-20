@@ -1,8 +1,16 @@
+package com.example.lld.loadBalancer.strategy.algorithm;
+
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
+
+import com.example.lld.loadBalancer.abstracts.LoadBalancer;
+import com.example.lld.loadBalancer.dto.Destination;
+import com.example.lld.loadBalancer.dto.Server;
+import com.example.lld.loadBalancer.enums.RequestType;
 
 public class WeightedDistribution extends LoadBalancer {
 
-    private final Map<RequestType, Integer> totalWeightMap =  new HashMap<>();
+    private final Map<RequestType, Integer> totalWeightMap = new HashMap<>();
 
     public WeightedDistribution(Map<RequestType, List<Server>> serverMap) {
         super(serverMap);

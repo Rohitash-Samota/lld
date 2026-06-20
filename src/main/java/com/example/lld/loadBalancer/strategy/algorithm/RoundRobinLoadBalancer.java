@@ -1,5 +1,15 @@
 package com.example.lld.loadBalancer.strategy.algorithm;
 
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import com.example.lld.loadBalancer.abstracts.LoadBalancer;
+import com.example.lld.loadBalancer.dto.Destination;
+import com.example.lld.loadBalancer.dto.Server;
+import com.example.lld.loadBalancer.enums.RequestType;
+
 public class RoundRobinLoadBalancer extends LoadBalancer {
 
     private final Map<RequestType, AtomicInteger> counters = new ConcurrentHashMap<>();
@@ -15,14 +25,20 @@ public class RoundRobinLoadBalancer extends LoadBalancer {
     @Override
     public Destination getDestination(RequestType requestType) {
 
+        if (requestType == null) {
+            return null;
+        }
+
         List<Server> servers = getServers(requestType);
 
         if (servers.isEmpty()) {
             return null;
         }
 
-        int index = Math.abs( counters.get(requestType).getAndIncrement()) % servers.size();
+        AtomicInteger counter = counters.computeIfAbsent(requestType, k -> new AtomicInteger());
+        int index = Math.floorMod(counter.getAndIncrement(), servers.size());
 
-        return servers.get(index).getDestination();
+        Server selected = servers.get(index);
+        return selected == null ? null : selected.getDestination();
     }
 }

@@ -3,16 +3,16 @@ package com.example.lld;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.example.lld.dto.parking.Vehicle;
-import com.example.lld.enums.parking.SpotType;
-import com.example.lld.enums.parking.VehicleType;
-import com.example.lld.services.parking.DashboardService;
-import com.example.lld.services.parking.EntranceGate;
-import com.example.lld.services.parking.ExitGate;
-import com.example.lld.services.parking.ParkingService;
-import com.example.lld.services.parking.PaymentService;
-import com.example.lld.services.parking.TicketService;
-import com.example.lld.services.parking.VehicleService;
+import com.example.lld.parking.dto.Vehicle;
+import com.example.lld.parking.enums.SpotType;
+import com.example.lld.parking.enums.VehicleType;
+import com.example.lld.parking.services.DashboardService;
+import com.example.lld.parking.services.EntranceGate;
+import com.example.lld.parking.services.ExitGate;
+import com.example.lld.parking.services.ParkingService;
+import com.example.lld.parking.services.PaymentService;
+import com.example.lld.parking.services.TicketService;
+import com.example.lld.parking.services.VehicleService;
 
 @Component
 public class TestRunnerParking implements CommandLineRunner {

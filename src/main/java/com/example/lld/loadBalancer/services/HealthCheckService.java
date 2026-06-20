@@ -1,12 +1,19 @@
 package com.example.lld.loadBalancer.services;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+import com.example.lld.loadBalancer.dto.Server;
+import com.example.lld.loadBalancer.registry.ServerRegistry;
+
 public class HealthCheckService {
 
     private static HealthCheckService instance;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     public static HealthCheckService getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new HealthCheckService();
         }
         return instance;
@@ -17,13 +24,11 @@ public class HealthCheckService {
         scheduler.scheduleAtFixedRate(
                 () -> {
 
-                    for(Server server :
-                            registry.getHealthyServers()) {
+                    for (Server server : registry.getHealthyServers()) {
 
-                        boolean alive =
-                                ping(server);
+                        boolean alive = ping(server);
 
-                        if(!alive) {
+                        if (!alive) {
                             server.setHealthy(false);
                         }
                     }
@@ -31,8 +36,7 @@ public class HealthCheckService {
                 },
                 0,
                 10,
-                TimeUnit.SECONDS
-        );
+                TimeUnit.SECONDS);
     }
 
     private boolean ping(Server server) {

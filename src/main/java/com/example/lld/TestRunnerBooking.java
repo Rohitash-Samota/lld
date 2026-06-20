@@ -5,22 +5,22 @@ import java.time.LocalDateTime;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.example.lld.dto.booking.Movie;
-import com.example.lld.dto.booking.Screen;
-import com.example.lld.dto.booking.Seat;
-import com.example.lld.dto.booking.Show;
-import com.example.lld.dto.booking.Theater;
-import com.example.lld.enums.booking.SeatType;
-import com.example.lld.services.booking.BookingService;
-import com.example.lld.services.booking.MovieService;
-import com.example.lld.services.booking.PricingRuleService;
-import com.example.lld.services.booking.PricingService;
-import com.example.lld.services.booking.SearchService;
-import com.example.lld.services.booking.ShowService;
-import com.example.lld.services.booking.TheatersService;
-import com.example.lld.strategy.booking.SearchByCityName;
-import com.example.lld.strategy.booking.SearchByMovieTitleName;
-import com.example.lld.strategy.booking.SearchByTheaterName;
+import com.example.lld.booking.dto.Movie;
+import com.example.lld.booking.dto.Screen;
+import com.example.lld.booking.dto.Seat;
+import com.example.lld.booking.dto.Show;
+import com.example.lld.booking.dto.Theater;
+import com.example.lld.booking.enums.SeatType;
+import com.example.lld.booking.service.BookingService;
+import com.example.lld.booking.service.MovieService;
+import com.example.lld.booking.service.PricingRuleService;
+import com.example.lld.booking.service.PricingService;
+import com.example.lld.booking.service.SearchService;
+import com.example.lld.booking.service.ShowService;
+import com.example.lld.booking.service.TheatersService;
+import com.example.lld.booking.strategy.SearchByCityName;
+import com.example.lld.booking.strategy.SearchByMovieTitleName;
+import com.example.lld.booking.strategy.SearchByTheaterName;
 
 @Component
 public class TestRunnerBooking implements CommandLineRunner {
@@ -132,7 +132,7 @@ public class TestRunnerBooking implements CommandLineRunner {
                         System.out.println("Seat type: " + pricingSeat.getSeatType());
                         System.out.println("Weekend + festival ticket amount: " + ticketAmount);
 
-                        com.example.lld.dto.booking.Ticket ticket = bookingService.bookTicket(
+                        com.example.lld.booking.dto.Ticket ticket = bookingService.bookTicket(
                                         show1.getShowId(), pricingSeat.getRow(),
                                         pricingSeat.getColNumber(), true, true);
                         if (ticket != null) {

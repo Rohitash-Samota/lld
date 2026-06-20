@@ -1,17 +1,21 @@
 package com.example.lld.loadBalancer.registry;
 
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+import com.example.lld.loadBalancer.dto.Server;
+
 public class ServerRegistry {
 
     private static ServerRegistry instance;
     private final CopyOnWriteArrayList<Server> servers = new CopyOnWriteArrayList<>();
-
 
     public void register(Server server) {
         servers.add(server);
     }
 
     public static ServerRegistry getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new ServerRegistry();
         }
         return instance;
