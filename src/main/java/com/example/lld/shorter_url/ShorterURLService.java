@@ -1,18 +1,16 @@
 package com.example.lld.shorter_url;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.lld.shorter_url.exception.InvalidShortURLException;
 import com.example.lld.shorter_url.exception.ShortURLExpiredException;
 import com.example.lld.shorter_url.exception.ShortURLNotFoundException;
+import com.example.lld.shorter_url.repo.InMemoryShortUrlRepo;
 import com.example.lld.shorter_url.repo.RedisShortUrlRepo;
-import com.example.lld.shorter_url.repo.ShortURLRepositoryI;
 
 @Service
 public class ShorterURLService {
@@ -20,17 +18,16 @@ public class ShorterURLService {
     private static final String SHORT_URL_HOST = "http://short.ly/";
     private static final Pattern URL_PATTERN = Pattern.compile("^https?://.+", Pattern.CASE_INSENSITIVE);
 
-    private final ShortURLRepositoryI shortURLRepo;
     private final RedisShortUrlRepo redisShortUrlRepo;
+    private final InMemoryShortUrlRepo dbRepo;
     private final ShortURLGeneratorService shortURLGeneratorService;
 
-    @Autowired
-    public ShorterURLService(ShortURLRepositoryI shortURLRepo, RedisShortUrlRepo redisShortUrlRepo,
+    public ShorterURLService(RedisShortUrlRepo redisShortUrlRepo, InMemoryShortUrlRepo dbRepo,
             ShortURLGeneratorService shortURLGeneratorService) {
-        this.shortURLRepo = Objects.requireNonNull(shortURLRepo, "shortURLRepo is required");
-        this.redisShortUrlRepo = Objects.requireNonNull(redisShortUrlRepo, "redisShortUrlRepo is required");
-        this.shortURLGeneratorService = Objects.requireNonNull(shortURLGeneratorService,
-                "shortURLGeneratorService is required");
+        this.redisShortUrlRepo = redisShortUrlRepo;
+        this.dbRepo = dbRepo;
+        this.shortURLGeneratorService = shortURLGeneratorService;
+
     }
 
     public ShorterURLDto createShortURL(String originalURL, LocalDateTime expiryDate) {
@@ -46,7 +43,7 @@ public class ShorterURLService {
         LocalDateTime effectiveExpiry = expiryDate != null ? expiryDate : LocalDateTime.now().plusDays(30);
 
         ShorterURLDto mapping = new ShorterURLDto(id, effectiveExpiry, normalizedURL, shortURL);
-        shortURLRepo.save(mapping);
+        dbRepo.save(mapping);
         redisShortUrlRepo.save(mapping);
         return mapping;
     }
@@ -70,6 +67,13 @@ public class ShorterURLService {
         return mapping.getOriginalURL();
     }
 
+    public String resolveFullUrl(String originalURL) {
+
+        String newUpdateUrl = normalizeUrl(originalURL);
+        ShorterURLDto mapping = lookupByOriginalURL(newUpdateUrl);
+        return mapping.getShortURL();
+    }
+
     public ShorterURLDto getMapping(String shortURL) {
         String normalizedShortURL = normalizeShortURL(shortURL);
         return lookupByShortURL(normalizedShortURL);
@@ -83,7 +87,7 @@ public class ShorterURLService {
             return mapping.get();
         }
 
-        mapping = shortURLRepo.findByOriginalURL(originalURL);
+        mapping = dbRepo.findByOriginalURL(originalURL);
 
         if (mapping.isPresent()) {
             redisShortUrlRepo.save(mapping.get());
@@ -101,7 +105,7 @@ public class ShorterURLService {
             return mapping.get();
         }
 
-        mapping = shortURLRepo.findByShortURL(shortURL);
+        mapping = dbRepo.findByShortURL(shortURL);
 
         if (mapping.isPresent()) {
             redisShortUrlRepo.save(mapping.get());
