@@ -14,8 +14,9 @@ public class Payment {
     private PaymentMethod paymentMethod;
     private PGType pgType;
 
-    public Payment(double amount, String orderId, PaymentMethod paymentMethod, PaymentStatus paymentStatus, PGType pgType) {
-        this.paymentId = "PAY_"+ UUID.randomUUID().toString();
+    public Payment(double amount, String orderId, PaymentMethod paymentMethod, PaymentStatus paymentStatus,
+            PGType pgType) {
+        this.paymentId = "PAY_" + UUID.randomUUID().toString();
         this.amount = amount;
         this.orderId = orderId;
         this.paymentMethod = paymentMethod;
@@ -23,9 +24,10 @@ public class Payment {
         this.pgType = pgType;
     }
 
-    public String getPaymentId(){
+    public String getPaymentId() {
         return paymentId;
     }
+
     public String getOrderId() {
         return orderId;
     }
