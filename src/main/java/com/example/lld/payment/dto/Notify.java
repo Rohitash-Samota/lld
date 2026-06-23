@@ -14,8 +14,8 @@ public class Notify {
     private LocalDateTime createdAt;
 
     public Notify(String paymentId,
-                  String message,
-                  NotifyType notifyType) {
+            String message,
+            NotifyType notifyType) {
 
         this.notifyId = "NOTIFY_" + UUID.randomUUID();
         this.paymentId = paymentId;
@@ -31,4 +31,33 @@ public class Notify {
     public NotifyType getNotifyType() {
         return notifyType;
     }
+
+    public String getNotifyId() {
+        return notifyId;
+    }
+
+    public String getPaymentId() {
+        return paymentId;
+    }
+
+    public void setPaymentId(String paymentId) {
+        this.paymentId = paymentId;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setNotifyType(NotifyType notifyType) {
+        this.notifyType = notifyType;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
 }
