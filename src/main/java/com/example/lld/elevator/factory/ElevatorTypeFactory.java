@@ -1,7 +1,7 @@
 package com.example.lld.elevator.factory;
 
 import com.example.lld.elevator.enums.ElevatorType;
-import com.example.lld.elevator.strategy.ElevatorI;
+import com.example.lld.elevator.interfaces.ElevatorI;
 import com.example.lld.elevator.strategy.ExtraLargeElevator;
 import com.example.lld.elevator.strategy.LargeElevator;
 import com.example.lld.elevator.strategy.MediumElevator;

@@ -3,6 +3,7 @@ package com.example.lld.elevator.strategy;
 import com.example.lld.elevator.dto.Elevator;
 import com.example.lld.elevator.enums.ElevatorState;
 import com.example.lld.elevator.enums.ElevatorType;
+import com.example.lld.elevator.interfaces.ElevatorI;
 
 public class ExtraLargeElevator implements ElevatorI {
     @Override

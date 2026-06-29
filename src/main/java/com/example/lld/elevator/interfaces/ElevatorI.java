@@ -1,4 +1,4 @@
-package com.example.lld.elevator.strategy;
+package com.example.lld.elevator.interfaces;
 
 import com.example.lld.elevator.dto.Elevator;
 
