@@ -8,7 +8,7 @@ public class Server {
     private Destination destination;
     private int weight;
 
-    private AtomicInteger activeConnections = new AtomicInteger(0);
+    private final AtomicInteger activeConnections = new AtomicInteger(0);
 
     private volatile boolean healthy = true;
 
