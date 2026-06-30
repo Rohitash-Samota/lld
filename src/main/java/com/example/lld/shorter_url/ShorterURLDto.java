@@ -19,6 +19,9 @@ public class ShorterURLDto {
         this.expiryDate = expiryDate;
         this.originalURL = originalURL;
         this.shortURL = shortURL;
+        this.active = true;
+        this.clickCount = 0;
+        this.createdAt = LocalDateTime.now();
     }
 
     public String getId() {
@@ -51,6 +54,30 @@ public class ShorterURLDto {
 
     public void setExpiryDate(LocalDateTime expiryDate) {
         this.expiryDate = expiryDate;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public long getClickCount() {
+        return clickCount;
+    }
+
+    public void setClickCount(long clickCount) {
+        this.clickCount = clickCount;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
 }
