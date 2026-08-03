@@ -19,9 +19,7 @@ public class ShorterURLDto {
         this.expiryDate = expiryDate;
         this.originalURL = originalURL;
         this.shortURL = shortURL;
-        this.active = true;
         this.clickCount = 0;
-        this.createdAt = LocalDateTime.now();
     }
 
     public String getId() {
