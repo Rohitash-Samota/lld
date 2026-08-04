@@ -1,10 +1,13 @@
 package com.example.lld.abstractFactory.aws;
- 
+
+import org.springframework.stereotype.Component;
+
 import com.example.lld.abstractFactory.module.BlobStore;
 
-public class AwsBlobStore implements BlobStore{
+@Component
+public class AwsBlobStore implements BlobStore {
     @Override
-    public BlobStore upload(String fileName, byte[] data){
-        return new BlobStore();
+    public void upload(String fileName, byte[] data) {
+        System.out.println("AwsBlobStore: uploading " + fileName + " (" + (data == null ? 0 : data.length) + " bytes)");
     }
 }
