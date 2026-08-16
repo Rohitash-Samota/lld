@@ -11,4 +11,9 @@ public final class PaymentContext {
         }
         return paymentStrategy.pay(paymentRequest);
     }
+
+    public PaymentResult payment(PaymentStrategy paymentStrategy, PaymentRequest paymentRequest) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'payment'");
+    }
 }
