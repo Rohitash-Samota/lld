@@ -1,13 +1,13 @@
-package com.example.lld.rateLimiter.services;
-
-import com.example.lld.rateLimiter.config.EndpointRateLimitConfig;
-import com.example.lld.rateLimiter.config.RateLimiterConfiguration;
-import com.example.lld.rateLimiter.dto.ResponseRateLimiter;
-import com.example.lld.rateLimiter.factory.RateLimiterFactory;
-import com.example.lld.rateLimiter.interfaces.RateLimiter;
+package com.example.lld.ratelimiter.services;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import com.example.lld.ratelimiter.config.EndpointRateLimitConfig;
+import com.example.lld.ratelimiter.config.RateLimiterConfiguration;
+import com.example.lld.ratelimiter.dto.ResponseRateLimiter;
+import com.example.lld.ratelimiter.factory.RateLimiterFactory;
+import com.example.lld.ratelimiter.interfaces.RateLimiter;
 
 public class RateLimiterService {
 

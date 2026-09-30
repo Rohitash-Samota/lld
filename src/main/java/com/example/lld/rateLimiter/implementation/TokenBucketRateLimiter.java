@@ -1,10 +1,10 @@
-package com.example.lld.rateLimiter.implementation;
-
-import com.example.lld.rateLimiter.dto.Bucket;
-import com.example.lld.rateLimiter.dto.ResponseRateLimiter;
-import com.example.lld.rateLimiter.interfaces.RateLimiter;
+package com.example.lld.ratelimiter.implementation;
 
 import java.util.concurrent.ConcurrentHashMap;
+
+import com.example.lld.ratelimiter.dto.Bucket;
+import com.example.lld.ratelimiter.dto.ResponseRateLimiter;
+import com.example.lld.ratelimiter.interfaces.RateLimiter;
 
 public class TokenBucketRateLimiter implements RateLimiter {
 

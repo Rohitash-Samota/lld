@@ -1,10 +1,10 @@
-package com.example.lld.rateLimiter.factory;
+package com.example.lld.ratelimiter.factory;
 
-import com.example.lld.rateLimiter.config.EndpointRateLimitConfig;
-import com.example.lld.rateLimiter.enums.RateLimitAlgorithm;
-import com.example.lld.rateLimiter.implementation.SlidingWindowLogRateLimiter;
-import com.example.lld.rateLimiter.implementation.TokenBucketRateLimiter;
-import com.example.lld.rateLimiter.interfaces.RateLimiter;
+import com.example.lld.ratelimiter.config.EndpointRateLimitConfig;
+import com.example.lld.ratelimiter.enums.RateLimitAlgorithm;
+import com.example.lld.ratelimiter.implementation.SlidingWindowLogRateLimiter;
+import com.example.lld.ratelimiter.implementation.TokenBucketRateLimiter;
+import com.example.lld.ratelimiter.interfaces.RateLimiter;
 
 public class RateLimiterFactory {
 

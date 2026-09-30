@@ -1,7 +1,7 @@
-package com.example.lld.rateLimiter;
+package com.example.lld.ratelimiter;
 
-import com.example.lld.rateLimiter.dto.ResponseRateLimiter;
-import com.example.lld.rateLimiter.services.RateLimiterService;
+import com.example.lld.ratelimiter.dto.ResponseRateLimiter;
+import com.example.lld.ratelimiter.services.RateLimiterService;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;

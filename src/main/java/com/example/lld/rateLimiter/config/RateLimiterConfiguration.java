@@ -1,10 +1,10 @@
-package com.example.lld.rateLimiter.config;
-
-import com.example.lld.rateLimiter.enums.RateLimitAlgorithm;
+package com.example.lld.ratelimiter.config;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.example.lld.ratelimiter.enums.RateLimitAlgorithm;
 
 public class RateLimiterConfiguration {
 

@@ -1,6 +1,6 @@
-package com.example.lld.rateLimiter.interfaces;
+package com.example.lld.ratelimiter.interfaces;
 
-import com.example.lld.rateLimiter.dto.RequestRateLimiter;
+import com.example.lld.ratelimiter.dto.RequestRateLimiter;
 
 public interface RateLimitKeyStrategy {
     String generateKey(RequestRateLimiter request);

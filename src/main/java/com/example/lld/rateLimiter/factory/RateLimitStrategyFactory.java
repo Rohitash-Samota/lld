@@ -1,10 +1,10 @@
-package com.example.lld.rateLimiter.factory;
+package com.example.lld.ratelimiter.factory;
 
-import com.example.lld.rateLimiter.enums.RateLimitType;
-import com.example.lld.rateLimiter.interfaces.RateLimitKeyStrategy;
-import com.example.lld.rateLimiter.strategy.key.DeviceKeyStrategy;
-import com.example.lld.rateLimiter.strategy.key.IpKeyStrategy;
-import com.example.lld.rateLimiter.strategy.key.UserKeyStrategy;
+import com.example.lld.ratelimiter.enums.RateLimitType;
+import com.example.lld.ratelimiter.interfaces.RateLimitKeyStrategy;
+import com.example.lld.ratelimiter.strategy.key.DeviceKeyStrategy;
+import com.example.lld.ratelimiter.strategy.key.IpKeyStrategy;
+import com.example.lld.ratelimiter.strategy.key.UserKeyStrategy;
 
 public class RateLimitStrategyFactory {
     private RateLimitStrategyFactory() {

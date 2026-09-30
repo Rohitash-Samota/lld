@@ -1,6 +1,6 @@
-package com.example.lld.rateLimiter.interfaces;
+package com.example.lld.ratelimiter.interfaces;
 
-import com.example.lld.rateLimiter.dto.ResponseRateLimiter;
+import com.example.lld.ratelimiter.dto.ResponseRateLimiter;
 
 public interface RateLimiter {
     ResponseRateLimiter allowRequest(String clientId);

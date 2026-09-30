@@ -1,7 +1,7 @@
-package com.example.lld.rateLimiter.strategy.key;
+package com.example.lld.ratelimiter.strategy.key;
 
-import com.example.lld.rateLimiter.dto.RequestRateLimiter;
-import com.example.lld.rateLimiter.interfaces.RateLimitKeyStrategy;
+import com.example.lld.ratelimiter.dto.RequestRateLimiter;
+import com.example.lld.ratelimiter.interfaces.RateLimitKeyStrategy;
 
 public class DeviceKeyStrategy implements RateLimitKeyStrategy {
     @Override

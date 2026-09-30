@@ -1,4 +1,4 @@
-package com.example.lld.rateLimiter.dto;
+package com.example.lld.ratelimiter.dto;
 
 public class Bucket {
 

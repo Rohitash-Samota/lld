@@ -1,4 +1,4 @@
-package com.example.lld.rateLimiter.enums;
+package com.example.lld.ratelimiter.enums;
 
 public enum RateLimitAlgorithm {
     TokenBucket,
