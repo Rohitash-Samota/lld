@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.lld.booking.dto.Movie;
 
-@Service
+@Service("movieService")
 public class MovieService {
     private final Map<String, Movie> movies = new HashMap<>();
 

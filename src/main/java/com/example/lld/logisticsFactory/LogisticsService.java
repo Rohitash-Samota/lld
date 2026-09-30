@@ -2,7 +2,7 @@ package com.example.lld.logisticsFactory;
 
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("logisticsService")
 public class LogisticsService {
 
     private final LogisticsFactoryOp logisticsFactoryOp;

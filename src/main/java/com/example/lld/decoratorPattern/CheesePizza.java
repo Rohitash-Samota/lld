@@ -2,7 +2,7 @@ package com.example.lld.decoratorPattern;
 
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("cheesePizza")
 public class CheesePizza extends PizzaDecorator {
     public CheesePizza(PizzaInterface decoratedPizza){
         super(decoratedPizza);

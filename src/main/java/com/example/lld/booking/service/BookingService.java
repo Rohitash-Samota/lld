@@ -12,7 +12,7 @@ import com.example.lld.booking.interfaces.BookingRepository;
 import com.example.lld.booking.interfaces.PaymentProcessor;
 
 // here create 
-@Service
+@Service("bookingService")
 public class BookingService {
 
     private final ShowService showService;

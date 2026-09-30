@@ -7,7 +7,7 @@ import com.example.lld.booking.dto.PricingRule;
 import com.example.lld.booking.dto.Seat;
 import com.example.lld.booking.dto.Show;
 
-@Service
+@Service("pricingService")
 public class PricingService {
 
     @Autowired

@@ -8,7 +8,7 @@ import com.example.lld.parking.dto.Level;
 import com.example.lld.parking.dto.ParkingSpot;
 import com.example.lld.parking.dto.Payment;
 
-@Service
+@Service("dashboardService")
 public class DashboardService {
 
     private final ParkingService parkingService;

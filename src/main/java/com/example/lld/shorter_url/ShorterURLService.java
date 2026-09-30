@@ -12,7 +12,7 @@ import com.example.lld.shorter_url.exception.ShortURLNotFoundException;
 import com.example.lld.shorter_url.repo.InMemoryShortUrlRepo;
 import com.example.lld.shorter_url.repo.RedisShortUrlRepo;
 
-@Service
+@Service("shorterURLService")
 public class ShorterURLService {
 
     private static final String SHORT_URL_HOST = "http://short.ly/";

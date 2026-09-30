@@ -7,7 +7,7 @@ import com.example.lld.parking.dto.ParkingSpot;
 import com.example.lld.parking.dto.Vehicle;
 import com.example.lld.parking.enums.LevelType;
 
-@Service
+@Service("parkingService")
 public class ParkingService {
 
     private final Level[] levels;

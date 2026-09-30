@@ -6,7 +6,7 @@ import com.example.lld.checkoutService.PaymentStrategy;
 import com.example.lld.checkoutService.dto.PaymentRequest;
 import com.example.lld.checkoutService.dto.PaymentResult;
 
-@Service
+@Service("walletPayment")
 final public class WalletPayment implements PaymentStrategy {
     @Override
     public PaymentResult pay(PaymentRequest request) {

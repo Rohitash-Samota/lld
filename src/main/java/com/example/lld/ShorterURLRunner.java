@@ -1,11 +1,16 @@
-package com.example.lld.shorter_url;
+package com.example.lld;
 
 import java.time.LocalDateTime;
 
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
+import com.example.lld.shorter_url.ShorterURLDto;
+import com.example.lld.shorter_url.ShorterURLService;
+
 @Component
+@ConditionalOnProperty(name = "runner", havingValue = "shorter-url")
 public class ShorterURLRunner implements CommandLineRunner {
 
     private final ShorterURLService shorterURLService;

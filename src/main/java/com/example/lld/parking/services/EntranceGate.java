@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.lld.parking.dto.Vehicle;
 
-@Service
+@Service("entranceGate")
 public class EntranceGate {
 
     private final TicketService ticketService;

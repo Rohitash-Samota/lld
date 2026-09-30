@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.lld.notificationSender.NotifyInterface;
 
-@Service
+@Service("emailService")
 public class EmailService implements NotifyInterface {
     @Override
     public String sendMessage(String message) {

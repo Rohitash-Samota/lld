@@ -2,7 +2,7 @@ package com.example.lld.shorter_url;
 
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("shortURLGeneratorService")
 public class ShortURLGeneratorService {
 
     // Take a Array for all char and digits

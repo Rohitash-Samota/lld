@@ -11,7 +11,7 @@ import com.example.lld.booking.dto.Screen;
 import com.example.lld.booking.dto.Theater;
 import com.example.lld.booking.enums.ScreenType;
 
-@Service
+@Service("theatersService")
 public class TheatersService {
 
     private static final int SCREEN_TYPE_COUNT = ScreenType.values().length;

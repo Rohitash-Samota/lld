@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import com.example.lld.booking.dto.Seat;
 import com.example.lld.booking.enums.SeatType;
 
-@Service
+@Service("seatsService")
 public class SeatsService {
 
     private static final char[] ROWS = {

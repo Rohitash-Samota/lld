@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.lld.lru.dto.LRUNode;
 
-@Service
+@Service("lruCacheService")
 public class LRUCacheService<K, V> {
 
     private final int capacity = 4;

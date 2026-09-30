@@ -12,7 +12,7 @@ import com.example.lld.booking.dto.Show;
 import com.example.lld.booking.enums.ScreenType;
 import com.example.lld.booking.enums.SeatType;
 
-@Service
+@Service("pricingRuleService")
 public class PricingRuleService {
 
     private final List<PricingRule> pricingRules = new ArrayList<>();

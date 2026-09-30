@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.example.lld.booking.dto.Show;
 import com.example.lld.booking.strategy.SearchStrategy;
 
-@Service
+@Service("searchService")
 public class SearchService {
     public Show[] search(String q, SearchStrategy searchStrategy) {
         Map<String, Show> shows = searchStrategy.search(q);

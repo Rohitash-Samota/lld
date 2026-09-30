@@ -2,7 +2,7 @@ package com.example.lld.decoratorPattern;
 
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("plainPizza")
 public class PlainPizza implements PizzaInterface {
     @Override
     public String createBase(String base){

@@ -10,7 +10,7 @@ import com.example.lld.booking.dto.Screen;
 import com.example.lld.booking.dto.Seat;
 import com.example.lld.booking.enums.ScreenType;
 
-@Service
+@Service("screensService")
 public class ScreensService {
 
     @Autowired

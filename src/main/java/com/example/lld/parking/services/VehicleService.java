@@ -9,7 +9,7 @@ import com.example.lld.parking.dto.Vehicle;
 import com.example.lld.parking.enums.SpotType;
 import com.example.lld.parking.enums.VehicleType;
 
-@Service
+@Service("vehicleService")
 public class VehicleService {
 
     private final List<Vehicle> vehicles = new ArrayList<>();

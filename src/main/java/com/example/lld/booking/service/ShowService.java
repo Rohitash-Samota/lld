@@ -11,7 +11,7 @@ import com.example.lld.booking.dto.Screen;
 import com.example.lld.booking.dto.Show;
 import com.example.lld.booking.dto.Theater;
 
-@Service
+@Service("showService")
 public class ShowService {
 
     private final Map<String, Show> shows = new HashMap<>();

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.lld.booking.interfaces.PaymentProcessor;
 import com.example.lld.parking.dto.Payment;
 
-@Service
+@Service("paymentService")
 public class PaymentService implements PaymentProcessor {
     private final Map<String, Payment> payments = new HashMap<>();
 

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.lld.parking.dto.Ticket;
 import com.example.lld.parking.dto.Vehicle;
 
-@Service
+@Service("ticketService")
 public class TicketService {
 
     private final Map<String, Ticket> tickets = new HashMap<>();
