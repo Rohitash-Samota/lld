@@ -16,7 +16,7 @@ import com.example.lld.parking.enums.SpotType;
 import com.example.lld.parking.factory.PricingStrategyFactory;
 import com.example.lld.parking.strategy.PricingStrategy;
 
-@Service("paymentService")
+@Service("paymentService2")
 public class PaymentService {
 
     // here create a payment and

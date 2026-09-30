@@ -4,8 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.stereotype.Repository;
+
 import com.example.lld.shorter_url.ShorterURLDto;
 
+@Repository
 public class InMemoryShortUrlRepo implements ShortURLRepositoryI {
 
     private final Map<String, ShorterURLDto> byShortUrl = new HashMap<>();
