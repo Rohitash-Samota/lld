@@ -1,4 +1,4 @@
-package com.example.lld.logisticsfactory;
+package com.example.lld.logisticsFactory;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -19,6 +19,6 @@ public class LogisticsRunner implements CommandLineRunner {
         Product bike = new Product("Bike-2", "Bike");
 
         logisticsService.processDelivery(car, TransPortType.ROAD);
-        logisticsService.processDelivery(bike, TransPortType.SEA);
+        logisticsService.processDelivery(bike, TransPortType.SEE);
     }
 }

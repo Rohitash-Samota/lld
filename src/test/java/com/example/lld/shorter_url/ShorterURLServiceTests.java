@@ -5,32 +5,24 @@ import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.example.lld.shorter_url.exception.InvalidShortURLException;
 import com.example.lld.shorter_url.exception.ShortURLExpiredException;
 import com.example.lld.shorter_url.exception.ShortURLNotFoundException;
+import com.example.lld.shorter_url.repo.InMemoryShortUrlRepo;
 import com.example.lld.shorter_url.repo.RedisShortUrlRepo;
-import com.example.lld.shorter_url.repo.InMemoryShortUrlRepository;
 
 class ShorterURLServiceTests {
 
-    private InMemoryShortUrlRepository repo;
-    private RedisShortUrlRepo redisRepo;
-    private ShorterURLService service;
-
-    @BeforeEach
-    void setUp() {
-        repo = new InMemoryShortUrlRepository();
-        redisRepo = new RedisShortUrlRepo();
-        service = new ShorterURLService(repo, redisRepo);
-    }
+    private final InMemoryShortUrlRepo repo = new InMemoryShortUrlRepo();
+    private final RedisShortUrlRepo redisRepo = new RedisShortUrlRepo();
+    private final ShorterURLService service = new ShorterURLService(redisRepo, repo, new ShortURLGeneratorService());
 
     @Test
     void createShortURL_generatesShortUrlAndResolvesBack() {
         String original = "https://example.com/page/1";
-        ShorterURLDto dto = service.createShortURL(original);
+        ShorterURLDto dto = service.createShortURL(original, null);
 
         assertTrue(dto.getShortURL().contains("http://short.ly/"));
         assertEquals(original, service.resolveShortURL(dto.getShortURL()));
@@ -39,8 +31,8 @@ class ShorterURLServiceTests {
     @Test
     void createShortURL_returnsSameMappingForDuplicateOriginalURL() {
         String original = "https://example.com/page/2";
-        ShorterURLDto first = service.createShortURL(original);
-        ShorterURLDto second = service.createShortURL(original);
+        ShorterURLDto first = service.createShortURL(original, null);
+        ShorterURLDto second = service.createShortURL(original, null);
 
         assertEquals(first.getId(), second.getId());
         assertEquals(first.getShortURL(), second.getShortURL());
@@ -48,7 +40,9 @@ class ShorterURLServiceTests {
 
     @Test
     void resolveShortURL_throwsWhenShortUrlNotFound() {
-        assertThrows(ShortURLNotFoundException.class, () -> service.resolveShortURL("http://short.ly/unknown"));
+        assertEquals("Short URL not found: http://short.ly/unknown",
+            assertThrows(ShortURLNotFoundException.class,
+                () -> service.resolveShortURL("http://short.ly/unknown")).getMessage());
     }
 
     @Test
@@ -76,17 +70,21 @@ class ShorterURLServiceTests {
     @Test
     void resolveShortURL_throwsWhenShortUrlExpired() {
         ShorterURLDto dto = service.createShortURL("https://example.com/expired", LocalDateTime.now().minusDays(1));
-        assertThrows(ShortURLExpiredException.class, () -> service.resolveShortURL(dto.getShortURL()));
+        assertEquals("Short URL has expired: " + dto.getShortURL(),
+            assertThrows(ShortURLExpiredException.class, () -> service.resolveShortURL(dto.getShortURL()))
+                .getMessage());
     }
 
     @Test
     void createShortURL_throwsWhenOriginalUrlInvalid() {
-        assertThrows(InvalidShortURLException.class, () -> service.createShortURL("invalid-url"));
+        assertEquals("Original URL must start with http:// or https://",
+            assertThrows(InvalidShortURLException.class, () -> service.createShortURL("invalid-url", null))
+                .getMessage());
     }
 
     @Test
     void resolveShortURL_acceptsShortKeyWithoutHost() {
-        ShorterURLDto dto = service.createShortURL("https://example.com/keytest");
+        ShorterURLDto dto = service.createShortURL("https://example.com/keytest", null);
         String loaded = service.resolveShortURL(dto.getShortURL().replace("http://short.ly/", ""));
         assertEquals(dto.getOriginalURL(), loaded);
     }

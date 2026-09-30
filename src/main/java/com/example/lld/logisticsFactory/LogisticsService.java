@@ -1,4 +1,4 @@
-package com.example.lld.logisticsfactory;
+package com.example.lld.logisticsFactory;
 
 import org.springframework.stereotype.Service;
 
