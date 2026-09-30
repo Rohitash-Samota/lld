@@ -2,50 +2,34 @@ package com.example.lld.ratelimiter.config;
 
 import com.example.lld.ratelimiter.enums.RateLimitAlgorithm;
 
-public class EndpointRateLimitConfig {
+public sealed interface EndpointRateLimitConfig
+        permits TokenBucketRateLimitConfig,
+                FixedWindowCounterRateLimitConfig,
+                SlidingWindowCounterRateLimitConfig,
+                SlidingWindowLogRateLimitConfig,
+                LeakyBucketRateLimitConfig {
 
-    private final String endpoint;
-    private final RateLimitAlgorithm algorithm;
-    private final int capacity;
-    private final double refillRatePerSecond;
-    private final int maxRequests;
-    private final long windowSizeMs;
+    String endpoint();
 
-    public EndpointRateLimitConfig(String endpoint,
-            RateLimitAlgorithm algorithm,
-            int capacity,
-            double refillRatePerSecond,
-            int maxRequests,
-            long windowSizeMs) {
-        this.endpoint = endpoint;
-        this.algorithm = algorithm;
-        this.capacity = capacity;
-        this.refillRatePerSecond = refillRatePerSecond;
-        this.maxRequests = maxRequests;
-        this.windowSizeMs = windowSizeMs;
+    RateLimitAlgorithm algorithm();
+
+    int limit();
+}
+
+final class EndpointRateLimitConfigValidation {
+
+    private EndpointRateLimitConfigValidation() {
     }
 
-    public String getEndpoint() {
-        return endpoint;
+    static void validateEndpoint(String endpoint) {
+        if (endpoint == null || endpoint.isBlank() || !endpoint.startsWith("/")) {
+            throw new IllegalArgumentException("Rate limit endpoint must be an absolute path");
+        }
     }
 
-    public RateLimitAlgorithm getAlgorithm() {
-        return algorithm;
-    }
-
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public double getRefillRatePerSecond() {
-        return refillRatePerSecond;
-    }
-
-    public int getMaxRequests() {
-        return maxRequests;
-    }
-
-    public long getWindowSizeMs() {
-        return windowSizeMs;
+    static void validateWindow(int maxRequests, long windowSizeMs) {
+        if (maxRequests <= 0 || windowSizeMs <= 0) {
+            throw new IllegalArgumentException("Window limit and size must be positive");
+        }
     }
 }

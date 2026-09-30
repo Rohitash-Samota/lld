@@ -1,22 +1,46 @@
 package com.example.lld.ratelimiter.factory;
 
+import org.springframework.data.redis.core.StringRedisTemplate;
+
 import com.example.lld.ratelimiter.config.EndpointRateLimitConfig;
-import com.example.lld.ratelimiter.enums.RateLimitAlgorithm;
+import com.example.lld.ratelimiter.config.FixedWindowCounterRateLimitConfig;
+import com.example.lld.ratelimiter.config.LeakyBucketRateLimitConfig;
+import com.example.lld.ratelimiter.config.SlidingWindowCounterRateLimitConfig;
+import com.example.lld.ratelimiter.config.SlidingWindowLogRateLimitConfig;
+import com.example.lld.ratelimiter.config.TokenBucketRateLimitConfig;
+import com.example.lld.ratelimiter.implementation.FixedWindowCounterRateLimiter;
+import com.example.lld.ratelimiter.implementation.LeakyBucketRateLimiter;
+import com.example.lld.ratelimiter.implementation.RedisRateLimiter;
+import com.example.lld.ratelimiter.implementation.SlidingWindowCounterRateLimiter;
 import com.example.lld.ratelimiter.implementation.SlidingWindowLogRateLimiter;
 import com.example.lld.ratelimiter.implementation.TokenBucketRateLimiter;
 import com.example.lld.ratelimiter.interfaces.RateLimiter;
 
 public class RateLimiterFactory {
 
+    private RateLimiterFactory() {
+    }
+
     public static RateLimiter createLimiter(EndpointRateLimitConfig config) {
-        RateLimitAlgorithm algorithm = config.getAlgorithm();
-        switch (algorithm) {
-            case TokenBucket:
-                return new TokenBucketRateLimiter(config.getCapacity(), config.getRefillRatePerSecond());
-            case SlidingWindowLog:
-                return new SlidingWindowLogRateLimiter(config.getMaxRequests(), config.getWindowSizeMs());
-            default:
-                throw new IllegalArgumentException("Unsupported algorithm: " + algorithm);
+        if (config instanceof TokenBucketRateLimitConfig bucket) {
+            return new TokenBucketRateLimiter(bucket.capacity(), bucket.refillRatePerSecond());
         }
+        if (config instanceof FixedWindowCounterRateLimitConfig window) {
+            return new FixedWindowCounterRateLimiter(window.maxRequests(), window.windowSizeMs());
+        }
+        if (config instanceof SlidingWindowCounterRateLimitConfig window) {
+            return new SlidingWindowCounterRateLimiter(window.maxRequests(), window.windowSizeMs());
+        }
+        if (config instanceof SlidingWindowLogRateLimitConfig window) {
+            return new SlidingWindowLogRateLimiter(window.maxRequests(), window.windowSizeMs());
+        }
+        if (config instanceof LeakyBucketRateLimitConfig bucket) {
+            return new LeakyBucketRateLimiter(bucket.capacity(), bucket.leakRatePerSecond());
+        }
+        throw new IllegalArgumentException("Unsupported endpoint rate limit config: " + config.getClass());
+    }
+
+    public static RateLimiter createRedisLimiter(EndpointRateLimitConfig config, StringRedisTemplate redisTemplate) {
+        return new RedisRateLimiter(redisTemplate, config);
     }
 }

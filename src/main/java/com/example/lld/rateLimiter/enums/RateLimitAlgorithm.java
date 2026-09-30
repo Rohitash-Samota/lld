@@ -1,8 +1,11 @@
 package com.example.lld.ratelimiter.enums;
 
 public enum RateLimitAlgorithm {
-    TokenBucket,
-    SlidingWindowLog;
+    TOKEN_BUCKET,
+    FIXED_WINDOW_COUNTER,
+    SLIDING_WINDOW_COUNTER,
+    SLIDING_WINDOW_LOG,
+    LEAKY_BUCKET;
 
     public static RateLimitAlgorithm from(String algorithm) {
         if (algorithm == null) {

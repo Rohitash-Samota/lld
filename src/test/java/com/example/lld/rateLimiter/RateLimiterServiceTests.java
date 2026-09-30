@@ -1,6 +1,7 @@
 package com.example.lld.ratelimiter;
 
 import com.example.lld.ratelimiter.dto.ResponseRateLimiter;
+import com.example.lld.ratelimiter.dto.RequestRateLimiter;
 import com.example.lld.ratelimiter.services.RateLimiterService;
 import org.junit.jupiter.api.Test;
 
@@ -74,5 +75,54 @@ class RateLimiterServiceTests {
 
         assertTrue(result.isAllowed());
         assertNotNull(result.getRemaining());
+    }
+
+    @Test
+    void allowRequest_usesConfiguredFixedWindowCounter() {
+        String endpoint = "/api/fixed";
+        for (int i = 0; i < 3; i++) {
+            assertTrue(service.allowRequest("fixed-client", endpoint).isAllowed());
+        }
+
+        ResponseRateLimiter denied = service.allowRequest("fixed-client", endpoint);
+
+        assertFalse(denied.isAllowed());
+        assertNotNull(denied.getRetryAfterMs());
+    }
+
+    @Test
+    void allowRequest_usesConfiguredSlidingWindowCounter() {
+        String endpoint = "/api/profile";
+        for (int i = 0; i < 5; i++) {
+            assertTrue(service.allowRequest("counter-client", endpoint).isAllowed());
+        }
+
+        ResponseRateLimiter denied = service.allowRequest("counter-client", endpoint);
+
+        assertFalse(denied.isAllowed());
+        assertNotNull(denied.getRetryAfterMs());
+    }
+
+    @Test
+    void allowRequest_usesConfiguredLeakyBucket() {
+        String endpoint = "/api/export";
+        for (int i = 0; i < 3; i++) {
+            assertTrue(service.allowRequest("leaky-client", endpoint).isAllowed());
+        }
+
+        ResponseRateLimiter denied = service.allowRequest("leaky-client", endpoint);
+
+        assertFalse(denied.isAllowed());
+        assertNotNull(denied.getRetryAfterMs());
+    }
+
+    @Test
+    void allowRequest_acceptsStructuredRequest() {
+        RequestRateLimiter request = new RequestRateLimiter(
+                null, "structured-client", null, "/api/fixed", null, null);
+
+        ResponseRateLimiter result = service.allowRequest(request);
+
+        assertTrue(result.isAllowed());
     }
 }

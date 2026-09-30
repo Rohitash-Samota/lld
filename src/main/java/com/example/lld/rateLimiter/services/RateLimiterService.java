@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.example.lld.ratelimiter.config.EndpointRateLimitConfig;
 import com.example.lld.ratelimiter.config.RateLimiterConfiguration;
+import com.example.lld.ratelimiter.dto.RequestRateLimiter;
 import com.example.lld.ratelimiter.dto.ResponseRateLimiter;
 import com.example.lld.ratelimiter.factory.RateLimiterFactory;
 import com.example.lld.ratelimiter.interfaces.RateLimiter;
@@ -31,5 +32,27 @@ public class RateLimiterService {
 
         RateLimiter limiter = endpointLimiters.getOrDefault(endpoint, defaultLimiter);
         return limiter.allowRequest(clientId);
+    }
+
+    public ResponseRateLimiter allowRequest(RequestRateLimiter request) {
+        if (request == null) {
+            return new ResponseRateLimiter(false, 0, null, "Missing request");
+        }
+
+        String clientId = firstNonBlank(request.getUserId(), request.getDeviceId(), request.getIp());
+        if (clientId == null) {
+            return new ResponseRateLimiter(false, 0, null, "Missing client identifier");
+        }
+
+        return allowRequest(clientId, request.getEndpoint());
+    }
+
+    private String firstNonBlank(String... values) {
+        for (String value : values) {
+            if (value != null && !value.isBlank()) {
+                return value;
+            }
+        }
+        return null;
     }
 }
