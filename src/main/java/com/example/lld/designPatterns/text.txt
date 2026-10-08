@@ -1,0 +1,2 @@
+Design patterns are reusable solutions to common software design problems 
+that help developers build cleaner and more maintainable systems.
