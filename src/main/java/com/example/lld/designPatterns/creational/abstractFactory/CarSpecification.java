@@ -1,5 +1,5 @@
 package com.example.lld.designPatterns.creational.abstractFactory;
 
-public class AbstractFactory {
-
+public interface CarSpecification{
+    void display();
 }
